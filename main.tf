@@ -81,7 +81,12 @@ module "alb" {
     {
       port               = 80
       protocol           = "HTTP"
-      target_group_index = 0 # Your original index
+      target_group_index = 0 # Assuming your module version still uses this for indexing
+      # Fix for "Insufficient default_action blocks"
+      default_action = {
+        type             = "forward"
+        target_group_index = 0 # Point to the first target group defined above
+      }
     }
   ]
   
