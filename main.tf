@@ -51,49 +51,6 @@ resource "aws_instance" "blog" {
   }
 }
 
-module "alb" {
-  source  = "terraform-aws-modules/alb/aws"
-  version = "9.17.0"
-
-  
-
-  name = "blog-alb"
-
-  load_balancer_type = "application"
-
-  vpc_id          = module.blog_vpc.vpc_id
-  subnets         = module.blog_vpc.public_subnets
-  security_groups = [module.blog_sg.security_group_id]
-
-  target_groups = [
-    {
-      name_prefix    = "blog"
-      backend_protocol = "HTTP"
-      backend_port   = 80
-      target_type    = "instance"
-      # IMPORTANT CHANGE: Pass a list of instance IDs directly here
-      targets        = [
-        aws_instance.blog.id
-      ]
-    }
-  ]
-  listeners = [
-    {
-      port               = 80
-      protocol           = "HTTP"
-      target_group_index = 0 # Assuming your module version still uses this for indexing
-      # Fix for "Insufficient default_action blocks"
-      default_action = {
-        type             = "forward"
-        target_group_index = 0 # Point to the first target group defined above
-      }
-    }
-  ]
-  
-  tags = {
-    Environment = "dev"
-  }
-}
 
 
 module "blog_sg" {
