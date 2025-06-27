@@ -79,11 +79,18 @@ module "alb" {
   ]
   http_tcp_listeners = [
     {
-      port     = 80
-      protocol = "HTTP"
-      target_group_index = 0
+      port               = 80
+      protocol           = "HTTP"
+      default_action = {
+        type = "forward"
+        forward {
+        target_group {
+          target_group_index = 0
+        }
+      }
     }
-  ]
+  } 
+]
   
   tags = {
     Environment = "dev"
