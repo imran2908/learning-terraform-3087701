@@ -64,10 +64,10 @@ module "alb" {
     http = {
       port     = 80
       protocol = "HTTP"
-      default_action = {
+      default_actions = [{
         type             = "forward"
         target_group_key = "ex-instance" # This refers to the target_groups key below
-      }
+      }]
     }
   }
     
