@@ -60,19 +60,6 @@ module "alb" {
   subnets = module.blog_vpc.public_subnets
   security_groups = [module.blog_sg.security_group_id]
 
-  listeners = {
-    http = {
-      port     = 80
-      protocol = "HTTP"
-      default_actions = [{
-        type             = "forward"
-        target_group_key = "ex-instance" # This refers to the target_groups key below
-      }]
-    }
-  }
-    
-  
-
   target_groups = [
     {
           
@@ -88,6 +75,16 @@ module "alb" {
         }
     }
   ]
+  http_tcp_listeners = {
+    http = {
+      port     = 80
+      protocol = "HTTP"
+      default_actions = [{
+        type             = "forward"
+        target_group_key = "ex-instance" # This refers to the target_groups key below
+      }]
+    }
+  }
 
 
   tags = {
