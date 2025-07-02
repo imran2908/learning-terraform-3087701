@@ -69,7 +69,7 @@ module "alb" {
       target_type      = "instance"
         targets = {
           my_target = {
-            target_id        = aws_instance.blog.id
+            target_id = aws_instance.blog.id
             port = 80
           }
         }
@@ -79,10 +79,7 @@ module "alb" {
     http = {
       port     = 80
       protocol = "HTTP"
-      default_actions = [{
-        type             = "forward"
-        target_group_key = "ex-instance" # This refers to the target_groups key below
-      }]
+      
     }
   }
 
