@@ -61,7 +61,7 @@ module "alb" {
   security_groups = [module.blog_sg.security_group_id]
 
   listeners = {
-    ex-http-https-redirect = {
+    http-only = {
       port     = 80
       protocol = "HTTP"
       default_action = {
