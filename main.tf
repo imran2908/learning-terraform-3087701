@@ -69,10 +69,9 @@ module "alb" {
         target_group_key = "ex-instance" # This refers to the target_groups key below
       }
     }
-      
-    }
-    
   }
+    
+  
 
   target_groups = {
     ex-instance = {
